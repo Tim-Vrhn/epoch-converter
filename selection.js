@@ -49,8 +49,9 @@ function timestampToDate(ts) {
 }
 
 function getLocalString(date) {
-  tz = date.getTimezoneOffset()
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} GMT${tz < 0 ? '+' : '-'}${pad(Math.floor(tz / 60))}:${pad(tz % 60)}`
+  const positiveGMTOffset = date.getTimezoneOffset() < 0;
+  const tz = Math.abs(date.getTimezoneOffset());
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())} GMT${positiveGMTOffset ? '+' : '-'}${pad(Math.floor(tz / 60))}:${pad(tz % 60)}`
 }
 
 function getUTCString(date) {
